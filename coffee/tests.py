@@ -1,17 +1,29 @@
 from urllib import response
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Coffee
+from .models import Coffee, Review
 
 
 class CoffeeTests(TestCase):
     @classmethod
     def setUpTestData(cls):
+        cls.user = get_user_model().objects.create_user(
+            username="reviewuser",
+            email="reviewuser@email.com",
+            password="testpass123",
+        )
         cls.coffee = Coffee.objects.create(
             title="Delicious Coffee",
             origin="UK",
             price="10.00",
+        )
+
+        cls.review = Review.objects.create(
+            coffee=cls.coffee,
+            author=cls.user,
+            review="Good review",
         )
 
     def test_coffee_listing(self):
@@ -31,4 +43,5 @@ class CoffeeTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, "Delicious Coffee")
+        self.assertContains(response, "Good review")
         self.assertTemplateUsed(response, "coffee/coffee_detail.html")

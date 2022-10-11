@@ -1,10 +1,21 @@
 from django.contrib import admin
 
-from .models import Coffee
+from .models import Coffee, Review
 
 
-class BookAdmin(admin.ModelAdmin):
-    list_display = ("title", "author", "price")
+class ReviewInline(admin.TabularInline):
+    model = Review
 
 
-admin.site.register(Coffee)
+class CoffeeAdmin(admin.ModelAdmin):
+    inlines = [
+        ReviewInline,
+    ]
+    list_display = (
+        "title",
+        "origin",
+        "price",
+    )
+
+
+admin.site.register(Coffee, CoffeeAdmin)
