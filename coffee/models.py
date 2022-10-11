@@ -15,6 +15,7 @@ class Coffee(models.Model):
     title = models.CharField(max_length=200)
     origin = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    front_picture = models.ImageField(upload_to="front_picture/", blank=True)
 
     def __str__(self):
         return self.title

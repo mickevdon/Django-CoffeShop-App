@@ -5,6 +5,9 @@
 
 {% block content %}
     <div class="coffee-detail">
+        {% if coffee.front_picture %}
+            <img class="front_picture" src="{{ coffee.front_picture.url }}" alt="{{ coffee.title }}">
+        {% endif %}
         <h2><a href="">{{ coffee.title }}</a></h2>
         <p>Origin: {{ coffee.origin }}</p>
         <p>Price: {{ coffee.price }}</p>
