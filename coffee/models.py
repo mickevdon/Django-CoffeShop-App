@@ -1,3 +1,4 @@
+from time import perf_counter
 import uuid
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -16,6 +17,11 @@ class Coffee(models.Model):
     origin = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     front_picture = models.ImageField(upload_to="front_picture/", blank=True)
+
+    class Meta:
+        permissions = [
+            ("special_status", "Can access all types of coffee"),
+        ]
 
     def __str__(self):
         return self.title
