@@ -1,0 +1,15 @@
+<!-- templates/coffee/search_results.html -->
+{% extends "_base.html" %}
+
+{% block title %}Search{% endblock title %}
+
+{% block content %}
+    <h1>Search Results</h1>
+    {% for coffee in coffee_list %}
+    <div>
+        <h3><a href="{{ coffee.get_absolute_url }}">{{ coffee.title }}</a></h3>
+        <p>Author: {{ coffee.author }}</p>
+        <p>Price: $ {{ coffee.price }}</p>
+    </div>
+{% endfor %}
+{% endblock content %}
