@@ -18,6 +18,9 @@ class CoffeeDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     template_name = "coffee/coffee_detail.html"
     login_url = "account_login"
     permission_required = "coffee.special_status"
+    queryset = Coffee.objects.all().prefetch_related(
+        "reviews__author",
+    )
 
 
 class SearchResultsListView(ListView):

@@ -19,6 +19,9 @@ class Coffee(models.Model):
     front_picture = models.ImageField(upload_to="front_picture/", blank=True)
 
     class Meta:
+        indexes = [
+            models.Index(fields=["id"], name="id_index"),
+        ]
         permissions = [
             ("special_status", "Can access all types of coffee"),
         ]
